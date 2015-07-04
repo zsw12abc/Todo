@@ -75,10 +75,10 @@
             </objects>
             <point key="canvasLocation" x="535" y="308"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="m7d-2f-FUa">
             <objects>
-                <viewController id="oY7-u2-es1" sceneMemberID="viewController">
+                <viewController id="oY7-u2-es1" customClass="DetailViewController" customModule="Todo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0iN-fz-5Ts"/>
                         <viewControllerLayoutGuide type="bottom" id="JZY-cU-XCB"/>
@@ -91,21 +91,37 @@
                                 <rect key="frame" x="20" y="72" width="50" height="50"/>
                                 <animations/>
                                 <state key="normal" backgroundImage="child"/>
+                                <state key="selected" image="child-selected"/>
+                                <connections>
+                                    <action selector="childTapped:" destination="oY7-u2-es1" eventType="touchUpInside" id="g5S-WX-Imw"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="88t-3i-DYp">
                                 <rect key="frame" x="97" y="72" width="50" height="50"/>
                                 <animations/>
                                 <state key="normal" backgroundImage="phone"/>
+                                <state key="selected" image="phone-selected"/>
+                                <connections>
+                                    <action selector="phoneTapped:" destination="oY7-u2-es1" eventType="touchUpInside" id="t2P-gq-Kh7"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w3N-XH-oS0">
                                 <rect key="frame" x="174" y="72" width="50" height="50"/>
                                 <animations/>
                                 <state key="normal" backgroundImage="shopping-cart"/>
+                                <state key="selected" image="shopping-cart-selected"/>
+                                <connections>
+                                    <action selector="shoppingCartTapped:" destination="oY7-u2-es1" eventType="touchUpInside" id="jnH-eD-L3u"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zoi-oz-G2P">
                                 <rect key="frame" x="250" y="72" width="50" height="50"/>
                                 <animations/>
                                 <state key="normal" backgroundImage="travel"/>
+                                <state key="selected" image="travel-selected"/>
+                                <connections>
+                                    <action selector="travelTapped:" destination="oY7-u2-es1" eventType="touchUpInside" id="k11-fW-rte"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Todo 事项" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6u2-LU-ufd">
                                 <rect key="frame" x="20" y="133" width="77" height="21"/>
@@ -131,16 +147,29 @@
                                 <rect key="frame" x="145" y="476" width="30" height="30"/>
                                 <animations/>
                                 <state key="normal" title="确定"/>
+                                <connections>
+                                    <action selector="okTapped:" destination="oY7-u2-es1" eventType="touchUpInside" id="axg-JA-d85"/>
+                                    <segue destination="gee-FA-Ner" kind="unwind" unwindAction="close:" id="lBR-RD-dNi"/>
+                                </connections>
                             </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Kkr-V9-FQD"/>
+                    <connections>
+                        <outlet property="childButton" destination="H8W-am-9Vk" id="y7f-pA-rpn"/>
+                        <outlet property="phoneButton" destination="88t-3i-DYp" id="LzT-VK-MVP"/>
+                        <outlet property="shoppingCartButton" destination="w3N-XH-oS0" id="p53-1Q-N2h"/>
+                        <outlet property="todoDate" destination="XRs-Ra-Rh8" id="oUa-aB-ZXO"/>
+                        <outlet property="todoItem" destination="CNM-Iy-3wG" id="RfE-ey-2k0"/>
+                        <outlet property="travelButton" destination="zoi-oz-G2P" id="cAd-Od-iJS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AEz-Jm-oWQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="gee-FA-Ner" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1069" y="308"/>
+            <point key="canvasLocation" x="939" y="308"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="efX-Qm-v29">
@@ -166,7 +195,10 @@
         <image name="child" width="50" height="50"/>
         <image name="child-selected" width="50" height="50"/>
         <image name="phone" width="50" height="50"/>
+        <image name="phone-selected" width="50" height="50"/>
         <image name="shopping-cart" width="50" height="50"/>
+        <image name="shopping-cart-selected" width="50" height="50"/>
         <image name="travel" width="50" height="50"/>
+        <image name="travel-selected" width="50" height="50"/>
     </resources>
 </document>

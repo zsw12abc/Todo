@@ -105,6 +105,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.setEditing(editing, animated: animated)
         //需要去激活导航栏左边的 edit 按钮
     }
+    
+    //加入点击确定后返回此页面 同时要去 storyboard 的 Detail界面下绑定确定按钮到 exit
+    @IBAction func close(segue: UIStoryboardSegue){
+        print("closed")
+        tableView.reloadData()
+    }
 
 }
 
