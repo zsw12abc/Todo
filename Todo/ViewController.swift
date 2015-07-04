@@ -20,7 +20,8 @@ func dateFromString(dateStr: String) -> NSDate? {
 }
 
 //引入协议 UITableViewDataSource 同时重写它的函数
-class ViewController: UIViewController, UITableViewDataSource {
+//继承协议 UITableViewDelegate 来删除 Cell
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -33,6 +34,9 @@ class ViewController: UIViewController, UITableViewDataSource {
             TodoModel(id: "2", image: "shopping-cart-selected", title: "2. 购物", date:  dateFromString("2014-10-28")!),
             TodoModel(id: "3", image: "phone-selected", title: "3. 打电话", date:  dateFromString("2014-10-30")!),
             TodoModel(id: "4", image: "travel-selected", title: "4. Travel to Europe", date:  dateFromString("2014-10-31")!)]
+        
+        //激活导航栏左边的 edit 按钮
+        navigationItem.leftBarButtonItem = editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,6 +82,28 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         return cell
         //如果运行还没有内容 说明 tabelView 没有绑定到 UITableViewDataSource, 去 storyboard 把 tableView 绑定到 ViewController 上 选择 dataSource
+    }
+    
+    // UITableViewDeleage中的函数 用来插入和删除数据 同时隐藏 optional
+    // Data manipulation - insert and delete support
+    
+    // After a row has the minus or plus button invoked (based on the UITableViewCellEditingStyle for the cell), the dataSource must commit the change
+    // Not called for edit actions using UITableViewRowAction - the action's handler will be invoked instead
+    /*optional*/ func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath){
+        if editingStyle == UITableViewCellEditingStyle.Delete{
+            todos.removeAtIndex(indexPath.row)
+            //删除数据后要重新刷新 table
+            //self.tableView.reloadData()
+            //加入删除的动画效果
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+    }
+    
+    //激活 Edit Mode
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        self.tableView.setEditing(editing, animated: animated)
+        //需要去激活导航栏左边的 edit 按钮
     }
 
 }
