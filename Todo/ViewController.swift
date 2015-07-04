@@ -30,10 +30,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Do any additional setup after loading the view, typically from a nib.
         
         //加入初始化的 Todo list 的内容
-        todos = [TodoModel(id: "1", image: "child-selected", title: "1. 去游乐场", date:  dateFromString("2014-11-02")!),
-            TodoModel(id: "2", image: "shopping-cart-selected", title: "2. 购物", date:  dateFromString("2014-10-28")!),
-            TodoModel(id: "3", image: "phone-selected", title: "3. 打电话", date:  dateFromString("2014-10-30")!),
-            TodoModel(id: "4", image: "travel-selected", title: "4. Travel to Europe", date:  dateFromString("2014-10-31")!)]
+        todos = [TodoModel(id: "1", image: "child-selected", title: "去游乐场", date:  dateFromString("2014-11-02")!),
+            TodoModel(id: "2", image: "shopping-cart-selected", title: "购物", date:  dateFromString("2014-10-28")!),
+            TodoModel(id: "3", image: "phone-selected", title: "打电话", date:  dateFromString("2014-10-30")!),
+            TodoModel(id: "4", image: "travel-selected", title: "Travel to Europe", date:  dateFromString("2014-10-31")!)]
         
         //激活导航栏左边的 edit 按钮
         navigationItem.leftBarButtonItem = editButtonItem()
@@ -106,10 +106,36 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //需要去激活导航栏左边的 edit 按钮
     }
     
+    
+    // 移动 Moving/reordering 只有在用户点击的时候才能移动
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return editing
+    }
+    //从起始行移动到目标行
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        //先删除要移动的那一项
+        let todo = todos.removeAtIndex(sourceIndexPath.row)
+        //插入到目标行
+        todos.insert(todo, atIndex: destinationIndexPath.row)
+    }
+    
+    
     //加入点击确定后返回此页面 同时要去 storyboard 的 Detail界面下绑定确定按钮到 exit
     @IBAction func close(segue: UIStoryboardSegue){
         print("closed")
         tableView.reloadData()
+    }
+    
+    //通过判断哪个 segue way 跳转到 DetailViewController 来确定是否要传输数据
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //判断是哪个 segue way 根据 id 来判断
+        if segue.identifier == "EditTodo" {
+            let vc = segue.destinationViewController as! DetailViewController
+            let indexPath = tableView.indexPathForSelectedRow
+            if let index = indexPath {
+                vc.todo = todos[index.row]
+            }
+        }
     }
 
 }
