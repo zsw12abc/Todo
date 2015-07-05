@@ -99,8 +99,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         dateFormatter.dateFormat = dateFormat
         date.text = dateFormatter.stringFromDate(todo.date)
         
-        
-        
         return cell
         //如果运行还没有内容 说明 tabelView 没有绑定到 UITableViewDataSource, 去 storyboard 把 tableView 绑定到 ViewController 上 选择 dataSource
     }
